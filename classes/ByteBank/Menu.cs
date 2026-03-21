@@ -33,7 +33,7 @@ namespace Module
             Console.Write("Insere o ID da conta: ");
             string id = Console.ReadLine();
 
-            Account account = this.AccountsList.get(id);
+            Account? account = this.AccountsList.get(id);
 
             if(account == null)
             {
@@ -45,6 +45,25 @@ namespace Module
             double amount = double.Parse(Console.ReadLine());
 
             account.AdicionarValor(amount);
+        }
+
+        private void Debitar()
+        {
+            Console.Write("Insere o ID da conta: ");
+            string id = Console.ReadLine();
+
+            Account? account = this.AccountsList.get(id);
+
+            if (account == null)
+            {
+                Console.WriteLine("Conta não encontrada.");
+                return;
+            }
+
+            Console.Write("Insere o valor: ");
+            double amount = double.Parse(Console.ReadLine());
+
+            account.RemoverValor(amount);
         }
 
         private void Stats()
@@ -65,6 +84,7 @@ namespace Module
 
                 if (controller == 1) CreateAccount();
                 else if (controller == 2) Deposit();
+                else if(controller == 3) Debitar();
                 else if (controller == 4) Stats();
 
                 if (controller != 0) Console.WriteLine();
