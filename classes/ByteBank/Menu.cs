@@ -28,6 +28,25 @@ namespace Module
             }
         }
 
+        private void Deposit()
+        {
+            Console.Write("Insere o ID da conta: ");
+            string id = Console.ReadLine();
+
+            Account account = this.AccountsList.get(id);
+
+            if(account == null)
+            {
+                Console.WriteLine("Conta não encontrada.");
+                return;
+            }
+
+            Console.Write("Insere o valor: ");
+            double amount = double.Parse(Console.ReadLine());
+
+            account.AdicionarValor(amount);
+        }
+
         private void Stats()
         {
             Console.WriteLine(this.AccountsList.ToString());
@@ -45,6 +64,7 @@ namespace Module
                 controller = sbyte.Parse(Console.ReadLine());
 
                 if (controller == 1) CreateAccount();
+                else if (controller == 2) Deposit();
                 else if (controller == 4) Stats();
 
                 if (controller != 0) Console.WriteLine();
