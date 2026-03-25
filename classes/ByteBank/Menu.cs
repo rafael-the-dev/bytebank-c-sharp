@@ -6,6 +6,13 @@ namespace Module
     {
         private AccountsList AccountsList;
 
+        enum Option: sbyte {
+            CREATE_ACOUNT = 1,
+            DEPOSIT_AMOUNT = 2,
+            WITHDRAW_AMOUNT = 3,
+            STATS = 4
+        }
+
         public Menu()
         {
             this.AccountsList = new AccountsList();
@@ -74,6 +81,7 @@ namespace Module
         public void Render()
         {
             sbyte controller = 0;
+           
 
             do
             {
@@ -82,10 +90,26 @@ namespace Module
                 Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Estatistica\nZero ==== Terminar");
                 controller = sbyte.Parse(Console.ReadLine());
 
-                if (controller == 1) CreateAccount();
-                else if (controller == 2) Deposit();
-                else if(controller == 3) Debitar();
-                else if (controller == 4) Stats();
+                switch((Option)controller)
+                {
+                    case Option.CREATE_ACOUNT:
+                        CreateAccount();
+                        break;
+                    case Option.DEPOSIT_AMOUNT:
+                        Deposit();
+                        break;
+                    case Option.WITHDRAW_AMOUNT:
+                        Debitar();
+                        break;
+                    case Option.STATS:
+                        Stats();
+                        break;
+                }
+
+                //if (controller == 1) CreateAccount();
+                //else if (controller == 2) Deposit();
+                //else if(controller == 3) Debitar();
+                //else if (controller == 4) Stats();
 
                 if (controller != 0) Console.WriteLine();
 
