@@ -1,7 +1,9 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace Module
 {
-    class Account {
+    class Account : IComparable {
         public double Amount { get; private set; }
         public Client Holder { get; private set; }
         public string Id { get; private set; }
@@ -28,6 +30,17 @@ namespace Module
                 this.Amount -= valor;
             }
         }
+
+        public int CompareTo(object? obj)
+        {
+            if (obj == null || !(obj is Account)) return -1;
+
+            Account account = (Account)obj;
+
+            return this.Amount.CompareTo(account.Amount);
+        }
+
+
 
         public override string ToString()
         {
