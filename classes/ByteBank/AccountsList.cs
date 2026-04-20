@@ -1,5 +1,5 @@
-﻿
-
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 
 namespace Module
@@ -7,85 +7,52 @@ namespace Module
     class AccountsList
     {
         private sbyte _currentFilledIndex; 
-        public Account[] List { get; private set; }
+        private List<Account> list;
 
         public AccountsList()
         {
             this._currentFilledIndex = -1;
-            this.List = new Account[100];
+            this.list = new List<Account>();
         }
 
-        public sbyte Length {  get { return (sbyte)(this._currentFilledIndex + 1); } }
+        public int Length {  get { return this.list.Count(); } }
 
         public Account? get(string id)
         {
-            Account? account = null;
-
-            for(sbyte i = 0;  i < this._currentFilledIndex + 1; i++)
-            {
-                if (this.List[i].Id == id)
-                {
-                    account = this.List[i];
-                    break;
-                }
-            }
+            Account? account = this
+                .list
+                .Find(acc => acc.Id == id);
 
             return account;
         }
 
         public void Add(Account account)
         {
-            sbyte index = this._currentFilledIndex += 1;
-
-            if(account != null && index < this.List.Length)
+            if (account != null)
             {
-                this._currentFilledIndex = index;
-                this.List[index] = account;
+                this.list.Add(account);
             }
         }
 
         public Account? MaxAccount()
         {
-            Account max = this.List[0];
-
-            if (max == null) return null;
-
-            for(sbyte i = 0; i < this._currentFilledIndex + 1; i++)
-            {
-                Account account = this.List[i];
-
-                if (account.Amount > max.Amount) { max = account; }
-            }
+            Account max = this.list.Max();
 
             return max;
         }
 
         public Account? MinAccount()
         {
-            Account min = this.List[0];
-
-            if (min == null) return null;
-
-            for (sbyte i = 0; i < this._currentFilledIndex + 1; i++)
-            {
-                Account account = this.List[i];
-
-                if (account.Amount < min.Amount) { min = account; }
-            }
+            Account min = this.list.Min();
 
             return min;
         }
         private double SaldoTotal()
         {
-            if (this._currentFilledIndex < 0) return 0;
-
             double total = 0;
 
-            for (sbyte i = 0; i < this._currentFilledIndex + 1; i++)
-            {
-                double amount = this.List[i].Amount;
-
-                if (amount > 0) total += amount;
+            foreach(Account acc in this.list) { 
+                total += acc.Amount;
             }
 
             return total;
