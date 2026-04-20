@@ -106,11 +106,6 @@ namespace Module
                         break;
                 }
 
-                //if (controller == 1) CreateAccount();
-                //else if (controller == 2) Deposit();
-                //else if(controller == 3) Debitar();
-                //else if (controller == 4) Stats();
-
                 if (controller != 0) Console.WriteLine();
 
             } while (controller != 0);
