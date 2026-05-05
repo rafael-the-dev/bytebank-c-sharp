@@ -11,7 +11,8 @@ namespace ByteBank.Module
             CREATE_ACOUNT = 1,
             DEPOSIT_AMOUNT = 2,
             WITHDRAW_AMOUNT = 3,
-            STATS = 4
+            DELETE_ACCOUNT = 4,
+            STATS = 5,
         }
 
         public Menu()
@@ -55,6 +56,7 @@ namespace ByteBank.Module
             double amount = double.Parse(Console.ReadLine());
 
             account.AdicionarValor(amount);
+            this.AccountsList.Reload();
         }
 
         private void Debitar()
@@ -74,6 +76,14 @@ namespace ByteBank.Module
             double amount = double.Parse(Console.ReadLine());
 
             account.RemoverValor(amount);
+            this.AccountsList.Reload();
+        }
+
+        private void RemoveAccount() {
+            Console.Write("Insere o ID da conta: ");
+            string id = Console.ReadLine();
+
+            this.AccountsList.Remove(id);
         }
 
         private void Stats()
@@ -92,7 +102,7 @@ namespace ByteBank.Module
             {
 
                 Console.WriteLine("Escolha uma das opções abaixo");
-                Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Estatistica\nZero ==== Terminar");
+                Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Apagar conta\n5 ==== Estatistica\nZero ==== Terminar");
                 controller = sbyte.Parse(Console.ReadLine());
 
                 switch((Option)controller)
@@ -105,6 +115,9 @@ namespace ByteBank.Module
                         break;
                     case Option.WITHDRAW_AMOUNT:
                         Debitar();
+                        break;
+                    case Option.DELETE_ACCOUNT:
+                        RemoveAccount();
                         break;
                     case Option.STATS:
                         Stats();

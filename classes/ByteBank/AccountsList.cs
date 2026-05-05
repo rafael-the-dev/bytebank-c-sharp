@@ -19,7 +19,7 @@ namespace ByteBank.Entities
 
         public void Reload()
         {
-            List<Account> newList = AccountRepository.getMany();
+            List<Account> newList = AccountRepository.GetMany();
 
             this.list = newList;
 
@@ -45,6 +45,18 @@ namespace ByteBank.Entities
 
         }
 
+        public void Remove(string id) { 
+            Account? account = this.get(id);
+
+            if (account != null) {
+                AccountRepository.Delete(id);
+
+                this.Reload();
+            } else {
+                Console.WriteLine("Conta não encontrada");
+            }
+        }
+
         public Account? MaxAccount()
         {
             Account max = this.list.Max();
@@ -58,6 +70,7 @@ namespace ByteBank.Entities
 
             return min;
         }
+
         private double SaldoTotal()
         {
             double total = 0;
@@ -73,8 +86,6 @@ namespace ByteBank.Entities
         {
             Account? max = this.MaxAccount();
             Account? min = this.MinAccount();
-
-            AccountRepository.getMany();
 
             return "Número de contas: " + this.Length + "\n"
                 + "Saldo total: " + this.SaldoTotal() + "\n"

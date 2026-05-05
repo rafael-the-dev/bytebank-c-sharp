@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using ByteBank.Entities;
+using ByteBank.Repositories;
 
 namespace ByteBank.Entities
 {
@@ -21,15 +22,23 @@ namespace ByteBank.Entities
         {
             if(valor > 0)
             {
-                this.Amount += valor;
+                double balance = this.Amount + valor;
+
+                AccountRepository.UpdateBalance(this.Id, balance);
+
+                this.Amount = balance;
             }
         }
 
         public void RemoverValor(double valor)
-        {
+        {   
             if (valor > 0 && this.Amount >= valor)
             {
-                this.Amount -= valor;
+                double balance = this.Amount - valor;
+
+                AccountRepository.UpdateBalance(this.Id, balance);
+
+                this.Amount = balance;
             }
         }
 
