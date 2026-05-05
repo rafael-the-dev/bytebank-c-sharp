@@ -9,12 +9,10 @@ namespace ByteBank.Entities
     class AccountsList
     {
         private List<Account> list;
-        private string path;
 
         public AccountsList()
         {
             this.list = new List<Account>();
-            this.path = @"C:\salc\C#\classes\ByteBank\data.txt";
         }
 
         public int Length {  get { return this.list.Count(); } }
@@ -40,15 +38,11 @@ namespace ByteBank.Entities
         {
             if (account != null)
             {
-                using (StreamWriter sw = File.AppendText(this.path))
-                {
-                    sw.WriteLine($"{account.Id},{account.Holder.Name},{account.Amount}");
-                }
+                AccountRepository.Save(account);
 
-                this.list.Add(account);
+                this.Reload();
             }
 
-            this.Reload();
         }
 
         public Account? MaxAccount()

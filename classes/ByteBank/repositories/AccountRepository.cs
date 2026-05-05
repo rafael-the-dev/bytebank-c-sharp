@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
@@ -30,6 +31,13 @@ namespace ByteBank.Repositories
             }
 
             return list;
+        }
+
+
+        public static void Save(Account account) {
+            string line = account.Id + "," + account.Holder.Name + "," + account.Amount + Environment.NewLine;
+
+            File.AppendAllText(path, line);
         }
     }
 }
