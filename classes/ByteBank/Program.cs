@@ -1,7 +1,7 @@
 ﻿
-using Module;
+using ByteBank.Module;
 
-namespace Base
+namespace ByteBank
 {
     class Program
     {

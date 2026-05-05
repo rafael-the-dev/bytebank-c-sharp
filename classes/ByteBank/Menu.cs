@@ -1,6 +1,7 @@
 ﻿
+using ByteBank.Entities;
 
-namespace Module
+namespace ByteBank.Module
 {
     class Menu
     {
@@ -16,6 +17,8 @@ namespace Module
         public Menu()
         {
             this.AccountsList = new AccountsList();
+
+            //this.AccountsList.Load();
         }
 
         private void CreateAccount()
@@ -81,6 +84,8 @@ namespace Module
         public void Render()
         {
             sbyte controller = 0;
+
+            this.AccountsList.Reload();
            
 
             do

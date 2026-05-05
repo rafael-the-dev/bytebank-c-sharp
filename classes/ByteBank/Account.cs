@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Module
+using ByteBank.Entities;
+
+namespace ByteBank.Entities
 {
     class Account : IComparable {
         public double Amount { get; private set; }

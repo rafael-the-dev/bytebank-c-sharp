@@ -1,21 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.IO;
 
-namespace Module
+using ByteBank.Repositories;
+
+namespace ByteBank.Entities
 {
     class AccountsList
     {
-        private sbyte _currentFilledIndex; 
         private List<Account> list;
+        private string path;
 
         public AccountsList()
         {
-            this._currentFilledIndex = -1;
             this.list = new List<Account>();
+            this.path = @"C:\salc\C#\classes\ByteBank\data.txt";
         }
 
         public int Length {  get { return this.list.Count(); } }
+
+        public void Reload()
+        {
+            List<Account> newList = AccountRepository.getMany();
+
+            this.list = newList;
+
+        }
 
         public Account? get(string id)
         {
@@ -30,8 +40,15 @@ namespace Module
         {
             if (account != null)
             {
+                using (StreamWriter sw = File.AppendText(this.path))
+                {
+                    sw.WriteLine($"{account.Id},{account.Holder.Name},{account.Amount}");
+                }
+
                 this.list.Add(account);
             }
+
+            this.Reload();
         }
 
         public Account? MaxAccount()
@@ -62,6 +79,8 @@ namespace Module
         {
             Account? max = this.MaxAccount();
             Account? min = this.MinAccount();
+
+            AccountRepository.getMany();
 
             return "Número de contas: " + this.Length + "\n"
                 + "Saldo total: " + this.SaldoTotal() + "\n"

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Module
+namespace ByteBank.Entities
 {
     internal class Client
     {
