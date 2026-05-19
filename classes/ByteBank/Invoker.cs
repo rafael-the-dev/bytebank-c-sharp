@@ -20,12 +20,15 @@ namespace ByteBank.Entities {
         public void Rollback() {
             sbyte length = (sbyte)history.Count();
 
+
             while (length > 0) {
                 ICommand command = history.ElementAt(length - 1);
 
                 history.RemoveAt(length - 1);
 
                 command.Undo();
+
+                length = (sbyte)history.Count();
             }
         }
 
@@ -36,6 +39,7 @@ namespace ByteBank.Entities {
                 }
             } catch(Exception e) {
                 Console.WriteLine("Erro encontrado, executando rollback...");
+                Console.WriteLine(e);
 
                 Rollback();
             }
