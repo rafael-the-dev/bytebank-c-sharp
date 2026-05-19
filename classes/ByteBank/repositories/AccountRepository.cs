@@ -5,18 +5,13 @@ using System.Collections.Generic;
 
 using ByteBank.Entities;
 
+
 namespace ByteBank.Repositories
 {
-    class AccountRepository
+    class AccountRepository : Repository
     {
         private static string path = @"C:\salc\C#\classes\ByteBank\data.txt";
-
-        private static string[] GetAllLine()
-        {
-            string[] lines = File.ReadAllLines(path);
-
-            return lines;
-        }
+        
 
         public static List<Account> GetMany()
         {
@@ -59,23 +54,6 @@ namespace ByteBank.Repositories
                     result += chunks[0] + "," + chunks[1] + "," + amount + Environment.NewLine;
                 } else
                 {
-                    result += line + Environment.NewLine;
-                }
-            }
-
-            File.WriteAllText(path, result);
-        }
-
-        public static void Delete(string id)
-        {
-            string[] lines = GetAllLine();
-            string result = "";
-
-            foreach (string line in lines)
-            {
-                string[] chunks = line.Split(',');
-
-                if (chunks[0] != id) {
                     result += line + Environment.NewLine;
                 }
             }
