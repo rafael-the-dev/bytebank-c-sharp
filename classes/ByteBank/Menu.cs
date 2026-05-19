@@ -1,5 +1,7 @@
-﻿
+﻿using System;
+
 using ByteBank.Entities;
+using ByteBank.Commands;
 
 namespace ByteBank.Module
 {
@@ -55,7 +57,14 @@ namespace ByteBank.Module
             Console.Write("Insere o valor: ");
             double amount = double.Parse(Console.ReadLine());
 
-            account.AdicionarValor(amount);
+            Invoker invoker = new Invoker();
+
+            invoker.RunBatch([
+                new DepositCommand(account, amount, account.Amount),
+                new SaveTransactionCommand(new Movement(-1, account.Id, amount, DateTime.Now, TYPE.IN))
+            ]);
+
+            //account.AdicionarValor(amount);
             this.AccountsList.Reload();
         }
 
