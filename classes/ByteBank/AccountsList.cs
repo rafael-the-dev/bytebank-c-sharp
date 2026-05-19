@@ -59,7 +59,7 @@ namespace ByteBank.Entities
 
         public Account? MaxAccount()
         {
-            Account max = this.list.Max();
+            Account? max = this.list.Max();
 
             return max;
         }
