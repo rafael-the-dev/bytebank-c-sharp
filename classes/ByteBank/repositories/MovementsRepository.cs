@@ -7,17 +7,10 @@ using ByteBank.Entities;
 //Id,AccountId,amount,type,date
 
 namespace ByteBank.Repositories {
-    class MovementsRepository {
+    class MovementsRepository : Repository {
         private static string path = @"C:\salc\C#\classes\ByteBank\movements.txt";
 
-        private static string[] GetAllLine()
-        {
-            string[] lines = File.ReadAllLines(path);
-
-            return lines;
-        }
-
-        public static void Save(string accountId, Movement movement) {
+        public static int Save(string accountId, Movement movement) {
             string[] lines = GetAllLine();
             int index = lines.Length + 1;
 
@@ -25,21 +18,12 @@ namespace ByteBank.Repositories {
                 + "," + accountId
                 + "," + movement.Amount
                 + "," + movement.Type
-                + "," + movement.Date;
+                + "," + movement.Date
+                + Environment.NewLine; 
 
             File.AppendAllText(path, line);
-        }
 
-        public static void Delete(string id) {
-            string[] lines = GetAllLine();
-            string result = "";
-
-            foreach (string line in lines) {
-                string[] chunks = line.Split(',');
-                if (chunks[0] != id) result += line + Environment.NewLine;
-            }
-
-            File.WriteAllText(path, result);
+            return index;
         }
     }
 }
