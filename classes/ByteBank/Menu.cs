@@ -84,7 +84,15 @@ namespace ByteBank.Module
             Console.Write("Insere o valor: ");
             double amount = double.Parse(Console.ReadLine());
 
-            account.RemoverValor(amount);
+            Invoker invoker = new Invoker();
+
+            //account.RemoverValor(amount);
+
+            invoker.RunBatch([
+                new WithdrawCommand(account, amount, account.Amount),
+                new SaveTransactionCommand(new Movement(-1, account.Id, amount, DateTime.Now, TYPE.OUT))
+            ]);
+
             this.AccountsList.Reload();
         }
 
