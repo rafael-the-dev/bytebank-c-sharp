@@ -28,7 +28,7 @@ namespace ByteBank.Entities {
 
                 command.Undo();
 
-                length = (sbyte)history.Count();
+                length--;
             }
         }
 
