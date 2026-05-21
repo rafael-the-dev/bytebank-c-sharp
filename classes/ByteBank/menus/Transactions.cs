@@ -64,12 +64,26 @@ namespace ByteBank.Menus {
             Print(data.ToArray());
         }
 
+        private double GetTotalByType(TYPE movType, List<Movement> list) {
+            double total = list
+                .Where(item => item.Type == movType)
+                .Aggregate(0.0, (acc, item) => item.Amount + acc);
+
+            return total;
+        }
+
         private void RenderAll()
         {
             List<Movement> list = this.MovementsCollection.GetAll();
 
             Console.WriteLine($"Imprimindo {list.Count()} transações:");
-           
+
+            double totalCredit = GetTotalByType(TYPE.IN, list);
+            double totalDebit = GetTotalByType(TYPE.OUT, list);
+
+            Console.WriteLine($"Total Crédito: {totalCredit}");
+            Console.WriteLine($"Total Débito: {totalDebit}");
+
             Print(list.ToArray());
         }
 
