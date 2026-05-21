@@ -10,10 +10,10 @@ namespace ByteBank.Repositories
 {
     class AccountRepository : Repository
     {
-        private static string path = @"C:\salc\C#\classes\ByteBank\data.txt";
+        public override string Path => @"C:\salc\C#\classes\ByteBank\data.txt";
         
 
-        public static List<Account> GetMany()
+        public List<Account> GetMany()
         {
             string[] lines = GetAllLine();
 
@@ -36,13 +36,13 @@ namespace ByteBank.Repositories
         }
 
 
-        public static void Save(Account account) {
+        public void Save(Account account) {
             string line = account.Id + "," + account.Holder.Name + "," + account.Amount + Environment.NewLine;
 
-            File.AppendAllText(path, line);
+            File.AppendAllText(Path, line);
         }
 
-        public static void UpdateBalance(string id, double amount) {
+        public void UpdateBalance(string id, double amount) {
             string[] lines = GetAllLine();
             string result = "";
 
@@ -58,7 +58,7 @@ namespace ByteBank.Repositories
                 }
             }
 
-            File.WriteAllText(path, result);
+            File.WriteAllText(Path, result);
         }
     }
 }

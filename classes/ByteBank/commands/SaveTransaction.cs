@@ -10,16 +10,18 @@ namespace ByteBank.Commands
     {
         public Movement Transaction { get; private set; }
         private int TransactionId;
+        private MovementsRepository _MovementsRepository;
 
         public SaveTransactionCommand(Movement transaction)
         {
             this.Transaction = transaction;
             this.TransactionId = -1;
+            this._MovementsRepository = new MovementsRepository();
         }
 
         public void Execute()
         {
-            int id = MovementsRepository.Save(this.Transaction.AccountId, this.Transaction);
+            int id = this._MovementsRepository.Save(this.Transaction.AccountId, this.Transaction);
 
             this.TransactionId = id;
         }
@@ -28,7 +30,7 @@ namespace ByteBank.Commands
         {
             if (this.TransactionId == -1) return;
 
-            MovementsRepository.Delete(this.TransactionId.ToString());
+            this._MovementsRepository.Delete(this.TransactionId.ToString());
 
             this.TransactionId = -1;
         }

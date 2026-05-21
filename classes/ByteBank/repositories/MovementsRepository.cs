@@ -8,9 +8,9 @@ using ByteBank.Entities;
 
 namespace ByteBank.Repositories {
     class MovementsRepository : Repository {
-        private static string path = @"C:\salc\C#\classes\ByteBank\movements.txt";
+        public override string Path => @"C:\salc\C#\classes\ByteBank\movements.txt";
 
-        public static int Save(string accountId, Movement movement) {
+        public int Save(string accountId, Movement movement) {
             string[] lines = GetAllLine();
             int index = lines.Length + 1;
 
@@ -21,9 +21,53 @@ namespace ByteBank.Repositories {
                 + "," + movement.Date
                 + Environment.NewLine; 
 
-            File.AppendAllText(path, line);
+            File.AppendAllText(Path, line);
 
             return index;
+        }
+
+        // write a function that convert string date time to DateTime
+        private DateTime GetDateTime(string value) {
+            string[] chunks = value.Split(" ");
+            string dateChunk = chunks[0];
+            string timeChunk = chunks[1];
+
+            string[] dateChunks = dateChunk.Split("/");
+            string[] timeChunks = timeChunk.Split(":");
+
+            return new DateTime(
+                int.Parse(dateChunks[2]),
+                int.Parse(dateChunks[1]),
+                int.Parse(dateChunks[0]),
+
+                int.Parse(timeChunks[0]),
+                int.Parse(timeChunks[1]),
+                int.Parse(timeChunks[2])
+            );
+        }
+
+        public MovementsList GetAll() {
+            string[] lines = GetAllLine();
+
+            List<Movement> list = new List<Movement>();
+
+            foreach(string line in lines) {
+                string[] chunks = line.Split(",");
+                foreach (string chunk in chunks) Console.Write(chunk);
+
+                //Id,AccountId,amount,type,date
+                //int id = int.Parse(chunks[0]);
+                //string accountId = chunks[1];
+                //double amount = double.Parse(chunks[2]);
+                //TYPE movementType = chunks[3] == "IN" ? TYPE.IN : TYPE.OUT;
+                //string date = chunks[4];
+
+                    //list.Add(
+                    //    new Movement(id, accountId, amount, GetDateTime(date), movementType)
+                    //);
+            }
+
+            return new MovementsList(list.ToArray());
         }
     }
 }

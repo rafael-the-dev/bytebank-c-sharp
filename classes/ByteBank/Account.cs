@@ -10,12 +10,14 @@ namespace ByteBank.Entities
         public double Amount { get; private set; }
         public Client Holder { get; private set; }
         public string Id { get; private set; }
+        private AccountRepository Repo;
 
         public Account(Client holder, string id, double amount)
         {
             this.Holder = holder;
             this.Amount = amount;
             this.Id = id;
+            this.Repo = new AccountRepository();
         }
 
         public void AdicionarValor(double valor)
@@ -24,7 +26,7 @@ namespace ByteBank.Entities
             {
                 double balance = this.Amount + valor;
 
-                AccountRepository.UpdateBalance(this.Id, balance);
+                this.Repo.UpdateBalance(this.Id, balance);
 
                 this.Amount = balance;
             }
@@ -36,7 +38,7 @@ namespace ByteBank.Entities
             {
                 double balance = this.Amount - valor;
 
-                AccountRepository.UpdateBalance(this.Id, balance);
+                this.Repo.UpdateBalance(this.Id, balance);
 
                 this.Amount = balance;
             }

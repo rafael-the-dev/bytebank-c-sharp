@@ -9,17 +9,19 @@ namespace ByteBank.Entities
     class AccountsList
     {
         private List<Account> list;
+        private AccountRepository repo;
 
         public AccountsList()
         {
             this.list = new List<Account>();
+            this.repo = new AccountRepository();
         }
 
         public int Length {  get { return this.list.Count(); } }
 
         public void Reload()
         {
-            List<Account> newList = AccountRepository.GetMany();
+            List<Account> newList = this.repo.GetMany();
 
             this.list = newList;
 
@@ -38,7 +40,7 @@ namespace ByteBank.Entities
         {
             if (account != null)
             {
-                AccountRepository.Save(account);
+                this.repo.Save(account);
 
                 this.Reload();
             }
@@ -49,7 +51,7 @@ namespace ByteBank.Entities
             Account? account = this.get(id);
 
             if (account != null) {
-                AccountRepository.Delete(id);
+                this.repo.Delete(id);
 
                 this.Reload();
             } else {
@@ -66,7 +68,7 @@ namespace ByteBank.Entities
 
         public Account? MinAccount()
         {
-            Account min = this.list.Min();
+            Account? min = this.list.Min();
 
             return min;
         }
