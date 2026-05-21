@@ -64,6 +64,15 @@ namespace ByteBank.Menus {
             Print(data.ToArray());
         }
 
+        private void RenderAll()
+        {
+            List<Movement> list = this.MovementsCollection.GetAll();
+
+            Console.WriteLine($"Imprimindo {list.Count()} transações:");
+           
+            Print(list.ToArray());
+        }
+
         public void Render() {
             sbyte controller = 0;
             
@@ -81,6 +90,9 @@ namespace ByteBank.Menus {
                 {
                     case Option.ALL_BY_ACCOUNT:
                         RenderAllByAccountId();
+                        break;
+                    case Option.ALL:
+                        RenderAll();
                         break;
                 }
 

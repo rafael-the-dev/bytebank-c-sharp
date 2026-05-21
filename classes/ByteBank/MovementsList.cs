@@ -12,5 +12,7 @@ namespace ByteBank.Entities {
         public List<Movement> GetByAccountId(string  accountId) {
             return this.Movements.FindAll(mv => mv.AccountId == accountId);
         }
+
+        public List<Movement> GetAll() { return this.Movements; }
     }
 }
