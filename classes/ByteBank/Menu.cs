@@ -3,7 +3,7 @@
 using ByteBank.Entities;
 using ByteBank.Commands;
 
-namespace ByteBank.Module
+namespace ByteBank.Menus
 {
     class Menu
     {
@@ -15,7 +15,8 @@ namespace ByteBank.Module
             WITHDRAW_AMOUNT = 3,
             DELETE_ACCOUNT = 4,
             ACCOUNTS = 5,
-            STATS = 6,
+            TRANSACTIONS = 6,
+            STATS = 7,
         }
 
         public Menu()
@@ -120,7 +121,7 @@ namespace ByteBank.Module
             {
 
                 Console.WriteLine("Escolha uma das opções abaixo");
-                Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Apagar conta\n5 === Contas\n6 ==== Estatistica\nZero ==== Terminar");
+                Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Apagar conta\n5 === Contas\n6 === Transações\n7 ==== Estatistica\nZero ==== Terminar");
                 controller = sbyte.Parse(Console.ReadLine());
 
                 switch((Option)controller)
@@ -137,6 +138,11 @@ namespace ByteBank.Module
                     case Option.DELETE_ACCOUNT:
                         RemoveAccount();
                         break;
+                    case Option.TRANSACTIONS: {
+                        TransactionMenu menu = new TransactionMenu();
+                        menu.Render();
+                        break;
+                    }
                     case Option.STATS:
                         Stats();
                         break;

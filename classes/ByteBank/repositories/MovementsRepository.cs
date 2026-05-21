@@ -53,21 +53,22 @@ namespace ByteBank.Repositories {
 
             foreach(string line in lines) {
                 string[] chunks = line.Split(",");
-                foreach (string chunk in chunks) Console.Write(chunk);
 
                 //Id,AccountId,amount,type,date
-                //int id = int.Parse(chunks[0]);
-                //string accountId = chunks[1];
-                //double amount = double.Parse(chunks[2]);
-                //TYPE movementType = chunks[3] == "IN" ? TYPE.IN : TYPE.OUT;
-                //string date = chunks[4];
+                int id = int.Parse(chunks[0]);
+                string accountId = chunks[1];
+                double amount = double.Parse(chunks[2]);
+                TYPE movementType = chunks[3] == "IN" ? TYPE.IN : TYPE.OUT;
+                string date = chunks[4];
 
-                    //list.Add(
-                    //    new Movement(id, accountId, amount, GetDateTime(date), movementType)
-                    //);
+                list.Add(
+                    new Movement(id, accountId, amount, GetDateTime(date), movementType)
+                );
             }
 
             return new MovementsList(list.ToArray());
         }
+
+        //public 
     }
 }
