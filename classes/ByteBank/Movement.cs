@@ -3,12 +3,12 @@ using System;
 using ByteBank.Repositories;
 
 namespace ByteBank.Entities {
-	enum TYPE: sbyte { 
+	public enum TYPE: sbyte { 
 		IN = 1,
 		OUT = -1
 	}
 
-	class Movement {
+	public class Movement {
 		public int Id { get; private set; }
 		public string AccountId { get; private set; }
 		public double Amount { get; private set; }
