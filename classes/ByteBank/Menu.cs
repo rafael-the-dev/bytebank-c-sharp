@@ -26,6 +26,12 @@ namespace ByteBank.Menus
             //this.AccountsList.Load();
         }
 
+        private void AccountsMenu()
+        {
+            AccountsMenu menu = new AccountsMenu();
+            menu.Render();
+        }
+
         private void CreateAccount()
         {
             Console.Write("Insere o nome: ");
@@ -137,6 +143,9 @@ namespace ByteBank.Menus
                         break;
                     case Option.DELETE_ACCOUNT:
                         RemoveAccount();
+                        break;
+                    case Option.ACCOUNTS:
+                        AccountsMenu();
                         break;
                     case Option.TRANSACTIONS: {
                         TransactionMenu menu = new TransactionMenu();

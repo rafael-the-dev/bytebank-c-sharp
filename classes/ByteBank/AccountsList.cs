@@ -36,6 +36,8 @@ namespace ByteBank.Entities
             return account;
         }
 
+        public List<Account> GetAll() {  return this.list; }
+
         public void Add(Account account)
         {
             if (account != null)

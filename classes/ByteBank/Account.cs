@@ -6,7 +6,7 @@ using ByteBank.Repositories;
 
 namespace ByteBank.Entities
 {
-    class Account : IComparable {
+    public class Account : IComparable {
         public double Amount { get; private set; }
         public Client Holder { get; private set; }
         public string Id { get; private set; }

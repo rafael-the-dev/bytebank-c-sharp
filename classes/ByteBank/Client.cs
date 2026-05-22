@@ -2,7 +2,7 @@
 
 namespace ByteBank.Entities
 {
-    internal class Client
+    public class Client
     {
         private string _name;
 
