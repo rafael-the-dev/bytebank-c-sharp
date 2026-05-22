@@ -121,7 +121,7 @@ namespace ByteBank.Menus
             {
 
                 Console.WriteLine("Escolha uma das opções abaixo");
-                Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Apagar conta\n5 === Contas\n6 === Transações\n7 ==== Estatistica\nZero ==== Terminar");
+                Console.WriteLine("1 ==== Criar conta\n2 ==== Depositar\n3 ==== Debitar\n4 ==== Apagar conta\n5 ==== Contas\n6 ==== Transações\n7 ==== Estatistica\nZero = Terminar");
                 controller = sbyte.Parse(Console.ReadLine());
 
                 switch((Option)controller)

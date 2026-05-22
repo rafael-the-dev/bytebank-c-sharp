@@ -45,6 +45,15 @@ namespace ByteBank.Menus {
             }
         }
 
+        private double GetTotalByType(TYPE movType, List<Movement> list)
+        {
+            double total = list
+                .Where(item => item.Type == movType)
+                .Aggregate(0.0, (acc, item) => item.Amount + acc);
+
+            return total;
+        }
+
         private void RenderAllByAccountId() {
             Console.Write("Insere o número da conta: ");
             string accountId = Console.ReadLine();
@@ -56,20 +65,17 @@ namespace ByteBank.Menus {
                 return;
             }
 
-            Console.WriteLine("Dados da conta:");
-            Console.WriteLine($"Nome: {account.Holder.Name}\nSaldo: {account.Amount}\n");
-
             List<Movement> data = this.MovementsCollection.GetByAccountId(accountId);
 
+            Console.WriteLine("Dados da conta:");
+            Console.WriteLine($"Nome: {account.Holder.Name}\nSaldo: {account.Amount}\n");
+            double totalCredit = GetTotalByType(TYPE.IN, data);
+            double totalDebit = GetTotalByType(TYPE.OUT, data);
+
+            Console.WriteLine($"Total Crédito: {totalCredit}");
+            Console.WriteLine($"Total Débito: {totalDebit}");
+
             Print(data.ToArray());
-        }
-
-        private double GetTotalByType(TYPE movType, List<Movement> list) {
-            double total = list
-                .Where(item => item.Type == movType)
-                .Aggregate(0.0, (acc, item) => item.Amount + acc);
-
-            return total;
         }
 
         private void RenderAll()
