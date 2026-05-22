@@ -34,6 +34,23 @@ namespace ByteBank.Menus {
             }
         }
 
+        private void Get()
+        {
+            Console.Write("Insira o número da conta: ");
+            string id = Console.ReadLine();
+
+            Account? account = this.AccountsList.get(id);
+
+            if(account == null)
+            {
+                Console.WriteLine("Conta não encontrada.");
+                return;
+            }
+
+            Console.WriteLine("Dados da conta: ");
+            Print([ account ]);
+        }
+
         private void GetAll()
         {
             List<Account> list = this.AccountsList.GetAll();
@@ -56,9 +73,9 @@ namespace ByteBank.Menus {
 
                 switch ((OPTIONS)controller)
                 {
-                    //case Option.ALL_BY_ACCOUNT:
-                    //    RenderAllByAccountId();
-                    //    break;
+                    case OPTIONS.GET:
+                        Get();
+                        break;
                     case OPTIONS.GET_ALL:
                         GetAll();
                         break;
