@@ -5,7 +5,8 @@ using ByteBank.Entities;
 using ByteBank.Repositories;
 
 namespace ByteBank.Menus { 
-    public class TransactionMenu {
+    public class TransactionMenu : BaseMenu<Movement>
+    {
         enum Option : sbyte
         {
             ALL_BY_ACCOUNT = 1,
@@ -27,17 +28,7 @@ namespace ByteBank.Menus {
             this.MovementsCollection = this.Repo.GetAll();
         }
 
-        private string GetColumn(string value, byte maxLength) {
-            string column = value;
-            
-            while(column.Length <= maxLength) {
-                column += " ";
-            }
-
-            return column;
-        }
-
-        private void Print(Movement[] list) {
+        public override void Print(Movement[] list) {
             Console.WriteLine($"{GetColumn("ID", 6)}{GetColumn("Valor", 10)}{GetColumn("Tipo", 12)}{GetColumn("Data", 12)}");
 
             foreach(Movement movement in list) {
